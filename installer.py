@@ -6,6 +6,9 @@ import shutil
 import PyInstaller.__main__
 import sys
 
+
+global root
+
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -51,13 +54,15 @@ def run():
     deploy_utility()
     create_decoy()
     
-    # messagebox.showinfo("Finsihed","Installation has finished")
+    messagebox.showinfo("Finsihed", "Installation has finished!")
     
-    # os._exit()
+    global root
+    root.destroy()
 
 
 
 def main():
+    global root
     root = tkinter.Tk()
     root.geometry('600x600')
     root.title("Installer")

