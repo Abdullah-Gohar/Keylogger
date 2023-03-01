@@ -50,7 +50,7 @@ class InputDetection:
     def try_upload(self):
         try:
             mega = Mega()
-            mega.login("totallylegit4sure@gmail.com", "youfoundit")
+            mega.login("Your MEGA EMAIL", "PASSWORD")
             file = self.PATH
             mega.upload(file)
             self.refresh_file()
